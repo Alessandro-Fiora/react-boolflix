@@ -42,7 +42,11 @@ export default function HomePage() {
             <ul key={movie.id}>
               <li>{movie.title}</li>
               <li>{movie.original_title}</li>
-              <li>{movie.language}</li>
+              <li>
+                <span
+                  className={`lang-icon lang-icon-${movie.language}`}
+                ></span>
+              </li>
               <li>{movie.rating}</li>
             </ul>
           );
@@ -56,7 +60,11 @@ export default function HomePage() {
             <ul key={serie.id}>
               <li>{serie.title}</li>
               <li>{serie.original_title}</li>
-              <li>{serie.language}</li>
+              <li>
+                <span
+                  className={`lang-icon lang-icon-${serie.language}`}
+                ></span>
+              </li>
               <li>{serie.rating}</li>
             </ul>
           );

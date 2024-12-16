@@ -7,3 +7,7 @@
 .page-wrapper > main {
   flex-grow: 1;
 }
+
+.lang-icon {
+  background-image: url(/public/lang-flags.png);
+}
