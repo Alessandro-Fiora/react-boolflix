@@ -9,7 +9,15 @@ const defaultFormData = {
 
 export default function HomePage() {
   const [formData, setFormData] = useState(defaultFormData);
-  const [moviesData, setMoviesData] = useState([]);
+  const [moviesData, setMoviesData] = useState([
+    {
+      id: 1339252,
+      language: "en",
+      original_title: "Harry",
+      rating: 5.595,
+      title: "Harry",
+    },
+  ]);
 
   // la funzione che fa il fetch andrà poi nel context
   const fetchMovies = () => {
@@ -23,7 +31,16 @@ export default function HomePage() {
     fetch(`${moviesApiUrl}?query=${formData.searchedWord}`, options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        const movies = data.results;
+        const newMoviesData = movies.map((movie) => ({
+          id: movie.id,
+          title: movie.title,
+          original_title: movie.original_title,
+          language: movie.original_language,
+          rating: movie.vote_average,
+        }));
+        console.log(newMoviesData);
+        setMoviesData(newMoviesData);
       });
   };
 
@@ -58,6 +75,19 @@ export default function HomePage() {
           />
           <button className="btn btn-primary">Cerca</button>
         </form>
+      </div>
+
+      <div className="result-section">
+        {moviesData.map((movie) => {
+          return (
+            <ul key={movie.id}>
+              <li>{movie.title}</li>
+              <li>{movie.original_title}</li>
+              <li>{movie.language}</li>
+              <li>{movie.rating}</li>
+            </ul>
+          );
+        })}
       </div>
     </div>
   );
