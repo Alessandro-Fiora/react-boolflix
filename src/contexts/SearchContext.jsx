@@ -6,6 +6,8 @@ const SearchContext = createContext();
 const moviesApiUrl = import.meta.env.VITE_THEMOVIEDB_MOVIES_API_URL;
 const seriesApiUrl = import.meta.env.VITE_THEMOVIEDB_SERIES_API_URL;
 const apiKey = import.meta.env.VITE_THEMOVIEDB_API_KEY;
+const imgBaseUrl = import.meta.env.VITE_THEMOVIEDB_IMG_BASE_URL;
+const imgWidth = 342;
 
 const defaultSearchFields = {
   word: "",
@@ -34,7 +36,10 @@ export const SearchContextProvider = ({ children }) => {
           title: movie.title,
           original_title: movie.original_title,
           language: movie.original_language,
-          rating: movie.vote_average,
+          rating: Math.ceil(movie.vote_average / 2),
+          img: movie.poster_path
+            ? `${imgBaseUrl}${imgWidth}/${movie.poster_path}`
+            : "https://placehold.co/342x513",
         }));
         setMovies(newMovies);
         setSearchFields(defaultSearchFields);
@@ -58,7 +63,10 @@ export const SearchContextProvider = ({ children }) => {
           title: serie.name,
           original_title: serie.original_name,
           language: serie.original_language,
-          rating: serie.vote_average,
+          rating: Math.ceil(serie.vote_average / 2),
+          img: serie.poster_path
+            ? `${imgBaseUrl}${imgWidth}/${serie.poster_path}`
+            : "https://placehold.co/342x513",
         }));
         setSeries(newSeries);
         setSearchFields(defaultSearchFields);
