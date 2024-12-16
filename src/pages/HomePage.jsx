@@ -1,10 +1,31 @@
 import { useState } from "react";
+
+const moviesApiUrl = import.meta.env.VITE_THEMOVIEDB_API_URL;
+const apiKey = import.meta.env.VITE_THEMOVIEDB_API_KEY;
+
 const defaultFormData = {
-  searchedWord: "",
+  searchedWord: "harry",
 };
 
 export default function HomePage() {
   const [formData, setFormData] = useState(defaultFormData);
+  const [moviesData, setMoviesData] = useState([]);
+
+  // la funzione che fa il fetch andrà poi nel context
+  const fetchMovies = () => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: "Bearer " + apiKey,
+      },
+    };
+    fetch(`${moviesApiUrl}?query=${formData.searchedWord}`, options)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
 
   const handleFormData = (e) => {
     const newValue = e.target.value;
@@ -17,6 +38,7 @@ export default function HomePage() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    fetchMovies();
     setFormData(defaultFormData);
   };
 
