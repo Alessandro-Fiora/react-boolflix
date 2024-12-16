@@ -1,62 +1,20 @@
-import { useState } from "react";
-
-const moviesApiUrl = import.meta.env.VITE_THEMOVIEDB_API_URL;
-const apiKey = import.meta.env.VITE_THEMOVIEDB_API_KEY;
-
-const defaultFormData = {
-  searchedWord: "harry",
-};
+import { searchContext } from "../contexts/searchContext";
 
 export default function HomePage() {
-  const [formData, setFormData] = useState(defaultFormData);
-  const [moviesData, setMoviesData] = useState([
-    {
-      id: 1339252,
-      language: "en",
-      original_title: "Harry",
-      rating: 5.595,
-      title: "Harry",
-    },
-  ]);
+  const { series, movies, searchFields, search, setSearchFields } =
+    searchContext();
 
-  // la funzione che fa il fetch andrà poi nel context
-  const fetchMovies = () => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: "Bearer " + apiKey,
-      },
-    };
-    fetch(`${moviesApiUrl}?query=${formData.searchedWord}`, options)
-      .then((res) => res.json())
-      .then((data) => {
-        const movies = data.results;
-        const newMoviesData = movies.map((movie) => ({
-          id: movie.id,
-          title: movie.title,
-          original_title: movie.original_title,
-          language: movie.original_language,
-          rating: movie.vote_average,
-        }));
-        console.log(newMoviesData);
-        setMoviesData(newMoviesData);
-      });
-  };
-
-  const handleFormData = (e) => {
+  const handleSearchFields = (e) => {
     const newValue = e.target.value;
 
-    setFormData({
-      searchedWord: newValue,
+    setSearchFields({
+      word: newValue,
     });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    fetchMovies();
-    setFormData(defaultFormData);
+    search();
   };
 
   return (
@@ -67,24 +25,39 @@ export default function HomePage() {
         <form onSubmit={handleFormSubmit}>
           <input
             id="search-input"
-            onChange={handleFormData}
-            value={formData.searchedWord}
+            onChange={handleSearchFields}
+            value={searchFields.word}
             className="form-control"
             type="text"
-            name="searchedWord"
+            name="word"
           />
           <button className="btn btn-primary">Cerca</button>
         </form>
       </div>
 
       <div className="result-section">
-        {moviesData.map((movie) => {
+        <h2>FILM</h2>
+        {movies.map((movie) => {
           return (
             <ul key={movie.id}>
               <li>{movie.title}</li>
               <li>{movie.original_title}</li>
               <li>{movie.language}</li>
               <li>{movie.rating}</li>
+            </ul>
+          );
+        })}
+      </div>
+
+      <div className="result-section">
+        <h2>SERIE TV</h2>
+        {series.map((serie) => {
+          return (
+            <ul key={serie.id}>
+              <li>{serie.title}</li>
+              <li>{serie.original_title}</li>
+              <li>{serie.language}</li>
+              <li>{serie.rating}</li>
             </ul>
           );
         })}

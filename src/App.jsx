@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { SearchContextProvider } from "./contexts/searchContext";
+
 // layout
 import DefaultLayout from "./layouts/DefaultLayout";
 
@@ -9,14 +11,16 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route Component={DefaultLayout}>
-          <Route path="/" Component={HomePage} />
-          <Route path="*" Component={NotFoundPage} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <SearchContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route Component={DefaultLayout}>
+            <Route path="/" Component={HomePage} />
+            <Route path="*" Component={NotFoundPage} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </SearchContextProvider>
   );
 }
 
