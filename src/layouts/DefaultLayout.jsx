@@ -8,7 +8,7 @@ export default function DefaultLayout() {
         <Navbar />
       </header>
 
-      <main>
+      <main className="d-flex flex-direction-column justify-content-center">
         <Outlet />
       </main>
 
