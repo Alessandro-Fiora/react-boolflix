@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function DefaultLayout() {
   return (
@@ -13,7 +13,7 @@ export default function DefaultLayout() {
       </main>
 
       <footer className="text-bg-dark bg-gradient py-4">
-        <div className="container">Footer</div>
+        <div className="container">Boolflix spa</div>
       </footer>
     </div>
   );

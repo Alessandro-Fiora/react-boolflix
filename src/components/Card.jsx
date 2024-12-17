@@ -12,15 +12,14 @@ export default function Card({ data }) {
 
   return (
     <div className="col">
-      <div className="card h-100">
-        <img className="img-fluid" src={data.img} alt="" />
-        {/* <ul key={data.id}>
-          <li>{data.title}</li>
-          <li>{data.original_title}</li>
-          <li>
-            <span className={`lang-icon lang-icon-${data.language}`}></span>
-          </li>
-          <li>
+      <div className="custom-card rounded-1 h-100">
+        <div className="overlay text-center text-light px-3 flex-column align-items-center p-3 ">
+          <h5 className="">{data.title}</h5>
+          <span
+            className={`lang-icon flex-shrink-0 lang-icon-${data.language}`}
+          ></span>
+          <h6>Original Title: {data.original_title}</h6>
+          <div>
             {printStars(data.rating).map((star, index) =>
               star ? (
                 <i key={index} className="fa-solid fa-star" />
@@ -28,11 +27,12 @@ export default function Card({ data }) {
                 <i key={index} className="fa-regular fa-star" />
               )
             )}
-          </li>
-          <li>
-            <img className="img-fluid" src={data.img} alt="" />
-          </li>
-        </ul> */}
+          </div>
+          <p>{data.overview}</p>
+        </div>
+        <div className="img-container h-100">
+          <img className="img-fluid h-100" src={data.img} alt="" />
+        </div>
       </div>
     </div>
   );

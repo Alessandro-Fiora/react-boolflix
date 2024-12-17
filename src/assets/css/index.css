@@ -6,8 +6,31 @@
 
 .page-wrapper > main {
   flex-grow: 1;
+  background-color: rgb(60, 60, 60);
 }
 
 .lang-icon {
   background-image: url(/public/lang-flags.png);
+}
+
+.custom-card {
+  overflow: hidden;
+  position: relative;
+  width: fit-content;
+}
+
+.overlay {
+  overflow: auto;
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.custom-card:hover .overlay {
+  display: flex;
+  gap: 1rem;
 }
