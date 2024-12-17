@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom";
 import { searchContext } from "../contexts/SearchContext";
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 const defaultSearchFields = {
   word: "",
 };
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
   const [searchFields, setSearchFields] = useState(defaultSearchFields);
 
   const { search, setIsSearching } = searchContext();
@@ -21,16 +23,16 @@ export default function Navbar() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    navigate("/search");
     setIsSearching(true);
     search(searchFields.word);
     setSearchFields(defaultSearchFields);
-
     setIsSearching(false);
   };
   return (
     <nav className="navbar navbar-expand-lg bg-dark ">
       <div className="container">
-        <Link className="navbar-brand  text-danger fs-1 fw-bold" to="#">
+        <Link className="navbar-brand  text-danger fs-1 fw-bold" to="/">
           BOOLFLIX
         </Link>
 
