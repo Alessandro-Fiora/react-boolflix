@@ -49,7 +49,7 @@ export default function Navbar() {
     navigate("/search");
     setIsSearching(true);
     search(searchFields.word, searchFields.genre);
-    setSearchFields(defaultSearchFields);
+    // setSearchFields(defaultSearchFields);
     setIsSearching(false);
   };
 
@@ -90,7 +90,7 @@ export default function Navbar() {
               value={searchFields.word}
               className="form-control search-input"
               type="text"
-              required
+              // required
             />
             <button data-bs-theme="dark" className="btn btn-dark ms-3">
               Cerca
